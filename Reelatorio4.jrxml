@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reelatorio4" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8ed1b703-4cfb-431e-a117-fd20844fdea7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT UF_EXERCICIO, COUNT(*) AS NUMERO_SERVIDORES
+FROM TB_SERVIDOR
+GROUP BY UF_EXERCICIO
+ORDER BY UF_EXERCICIO]]>
+	</queryString>
+	<field name="UF_EXERCICIO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NUMERO_SERVIDORES" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="63" y="0" width="332" height="33" uuid="ebb0b567-61e6-4278-ad72-bd7eba70d7d5"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Número de servidores po UF de exercício]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="0" width="100" height="20" uuid="a771bd59-07e9-4c8e-83bf-53f9ed61b9d9"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="684" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="0" y="0" width="357" height="581" uuid="a984e899-f998-4414-963f-276013cc23df"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Número de Servidores por UF"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{UF_EXERCICIO}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{NUMERO_SERVIDORES}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot orientation="Horizontal"/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<textField>
+				<reportElement x="435" y="664" width="80" height="20" uuid="22de7d6b-395e-40a4-9016-e1a3d2e177f8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="664" width="40" height="20" uuid="64a7c1d9-0cef-40ba-8a96-36258057ea4c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="664" width="153" height="20" uuid="05135975-182b-40db-a972-93acd28cd904"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hebert Almeida de Freitas]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
